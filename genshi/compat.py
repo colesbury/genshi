@@ -96,6 +96,10 @@ else:
 
 
     def build_code_chunk(code, filename, name, lineno):
+        if hasattr(code, 'replace'):
+            return code.replace(co_filename=filename,
+                                co_name=name,
+                                co_firstlineno=lineno)
         params =  [0, code.co_nlocals, code.co_kwonlyargcount,
                   code.co_stacksize, code.co_flags | 0x0040,
                   code.co_code, code.co_consts, code.co_names,
